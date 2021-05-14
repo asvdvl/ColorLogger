@@ -3,14 +3,40 @@ using System.Collections.Generic;
 
 namespace ColorLogger
 {
+    /// <summary>
+    /// Static class for 
+    /// </summary>
     public static class ColorLogger
     {
+        /// <summary>
+        /// enumeration with different log levels
+        /// </summary>
         public enum LogLevel
         {
+            /// <summary>
+            /// Foreground color - Gray,
+            /// Background color - Black
+            /// </summary>
             Debug,
+            /// <summary>
+            /// Foreground color - White,
+            /// Background color - Black
+            /// </summary>
             Information,
+            /// <summary>
+            /// Foreground color - Yellow,
+            /// Background color - Black
+            /// </summary>
             Warning,
+            /// <summary>
+            /// Foreground color - Red,
+            /// Background color - Black
+            /// </summary>
             Error,
+            /// <summary>
+            /// Foreground color - Red,
+            /// Background color - White
+            /// </summary>
             Critical
         }
 
@@ -44,7 +70,7 @@ namespace ColorLogger
             { LogLevel.Critical, "Crit" }
         };
 
-        static string getLevelName(LogLevel logLevel, bool needPrefix, bool shortPrefix)
+        static string GetLevelName(LogLevel logLevel, bool needPrefix, bool shortPrefix)
         {
             if (needPrefix)
             {
@@ -61,27 +87,35 @@ namespace ColorLogger
             return "";
         }
 
+
+        /// <summary>
+        /// Log with additional parameters 
+        /// </summary>
+        /// <param name="logLevel">Level of log</param>
+        /// <param name="text">Logging text</param>
+        /// <param name="prefix">Inserting an index</param>
+        /// <param name="shortPrefix">Use a shortened prefix. e.g. Info without Information</param>
         public static void Log(LogLevel logLevel, string text, bool prefix = true, bool shortPrefix = true)
         {
             ColorAndLogRelation.TryGetValue(logLevel, out FBColors colors);
-            ;
+
             ConsoleColor savedFColor = Console.ForegroundColor;
             ConsoleColor savedBColor = Console.BackgroundColor;
 
             Console.ForegroundColor = colors.ForegroundColor;
             Console.BackgroundColor = colors.BackgroundColor;
 
-            Console.WriteLine($"{getLevelName(logLevel, prefix, shortPrefix)}{text}");
+            Console.WriteLine($"{GetLevelName(logLevel, prefix, shortPrefix)}{text}");
 
             Console.ForegroundColor = savedFColor;
             Console.BackgroundColor = savedBColor;
         }
 
-        
+
         /// <summary>
         /// Log with info level
         /// </summary>
-        /// <param name="text">Text to log</param>
+        /// <param name="text">Logging text</param>
         public static void Log(string text)
         {
             Log(LogLevel.Information, text);
