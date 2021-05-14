@@ -1,8 +1,10 @@
 # ColorLogger
 This is a simple wrapper for WriteLine that adds colors and prefixes to the output text.\
 You can take either the dll or the nuget package to connect to your solution.
+### Usage section of your programm:
+`using static ColorLogger.ColorLogger;`
 
-# Usage:\
+# Usage:
 simply display messages with the [info] prefix\
 `Log("text");`\
 Output: `[INFO] text`.
